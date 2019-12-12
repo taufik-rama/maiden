@@ -1,0 +1,35 @@
+---
+fixtures:
+    imports:
+        - cassandra/array.yaml
+        - elasticsearch/array.yaml
+        - postgresql/array.yaml
+        - redis/array.yaml
+    cassandra:
+        src:
+            - "root-cassandra-src-1"
+            - "root-cassandra-src-2"
+        dest:
+            - "root-cassandra-dest-1"
+            - "root-cassandra-dest-2"
+    elasticsearch:
+        src:
+            - "root-elasticsearch-src-1"
+            - "root-elasticsearch-src-2"
+        dest:
+            - "root-elasticsearch-dest-1"
+            - "root-elasticsearch-dest-2"
+    postgresql:
+        src:
+            - "root-postgresql-src-1"
+            - "root-postgresql-src-2"
+        dest:
+            - "root-postgresql-dest-1"
+            - "root-postgresql-dest-2"
+    redis:
+        src:
+            - "root-redis-src-1"
+            - "root-redis-src-2"
+        dest:
+            - "root-redis-dest-1"
+            - "root-redis-dest-2"

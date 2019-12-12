@@ -1,0 +1,9 @@
+---
+services:
+    http:
+        http-service-1:
+            imports:
+                - services.yaml
+        http-service-2:
+            imports:
+                - services.yaml

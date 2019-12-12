@@ -1,0 +1,51 @@
+---
+services:
+    http:
+        http-service-1:
+            port: 100
+            endpoints:
+                "/":
+                    - method: GET
+                      request: request
+                      response: response
+                    - method: POST
+                      request:
+                        query: request
+                        body:
+                            key: request
+                            other-key: request
+                      response:
+                        user-id: 1
+                        attribute:
+                            active: true
+                            email: mail@nasa.com
+                "/endpoint-1":
+                    - method: 
+                        - GET
+                        - POST
+                      request: request
+                      response: response
+        http-service-2:
+            port: 100
+            endpoints:
+                "/":
+                    - method: GET
+                      request: request
+                      response: response
+                    - method: POST
+                      request:
+                        query: request
+                        body:
+                            key: request
+                            other-key: request
+                      response:
+                        user-id: 1
+                        attribute:
+                            active: true
+                            email: mail@nasa.com
+                "/endpoint-1":
+                    - method: 
+                        - GET
+                        - POST
+                      request: request
+                      response: response

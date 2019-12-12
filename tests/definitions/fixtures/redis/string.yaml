@@ -1,0 +1,5 @@
+---
+fixtures:
+    redis:
+        src: "redis-src"
+        dest: "redis-dest"

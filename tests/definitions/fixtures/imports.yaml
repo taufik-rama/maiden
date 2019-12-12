@@ -1,0 +1,7 @@
+---
+fixtures:
+    imports:
+        - cassandra/array.yaml
+        - elasticsearch/array.yaml
+        - postgresql/array.yaml
+        - redis/array.yaml

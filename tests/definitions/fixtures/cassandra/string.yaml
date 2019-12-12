@@ -1,0 +1,5 @@
+---
+fixtures:
+    cassandra:
+        src: "cassandra-src"
+        dest: "cassandra-dest"

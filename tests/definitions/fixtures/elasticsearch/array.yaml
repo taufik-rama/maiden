@@ -1,0 +1,9 @@
+---
+fixtures:
+    elasticsearch:
+        src:
+            - "elasticsearch-src-1"
+            - "elasticsearch-src-2"
+        dest:
+            - "elasticsearch-dest-1"
+            - "elasticsearch-dest-2"

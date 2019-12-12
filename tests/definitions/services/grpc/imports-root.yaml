@@ -1,0 +1,41 @@
+---
+services:
+    grpc:
+        grpc-service-1:
+            imports:
+                - services.yaml
+            port: 90
+            definition: "root-definition-1"
+            methods:
+                root-method-1:
+                    request: root-method-1-request
+                    response: root-method-1-response
+                root-method-2:
+                    request: root-method-2-request
+                    response: root-method-2-response
+            conditions:
+                root-method-1:
+                  - request: root-condition-1-request
+                    response: root-condition-1-response
+                root-method-2:
+                  - request: root-condition-2-request
+                    response: root-condition-2-response
+        grpc-service-2:
+            imports:
+                - services.yaml
+            port: 90
+            definition: "root-definition-2"
+            methods:
+                root-method-1:
+                    request: root-method-1-request
+                    response: root-method-1-response
+                root-method-2:
+                    request: root-method-2-request
+                    response: root-method-2-response
+            conditions:
+                root-method-1:
+                  - request: root-condition-1-request
+                    response: root-condition-1-response
+                root-method-2:
+                  - request: root-condition-2-request
+                    response: root-condition-2-response

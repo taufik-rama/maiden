@@ -1,0 +1,9 @@
+---
+fixtures:
+    postgresql:
+        src:
+            - "postgresql-src-1"
+            - "postgresql-src-2"
+        dest:
+            - "postgresql-dest-1"
+            - "postgresql-dest-2"
