@@ -1,0 +1,26 @@
+---
+fixtures:
+    cassandra:
+        src:
+            - keyspace: keyspace_a
+              definition: definition
+              files: files
+        dest: destination
+    elasticsearch:
+        src:
+            - index: index_a
+              mapping: mapping
+              files: files
+        dest: destination
+    postgresql:
+        src:
+            - database: database_a
+              definition: definition
+              files: files
+        dest: destination
+    redis:
+        src: source
+        dest: destination
+services:
+    grpc:
+    http:

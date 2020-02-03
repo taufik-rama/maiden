@@ -1,0 +1,4 @@
+---
+fixtures:
+    redis:
+        src: redis-keyvals

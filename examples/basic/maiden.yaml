@@ -1,0 +1,9 @@
+---
+fixtures:
+    imports:
+        - fixtures.yaml
+
+services:
+    imports:
+        - services.yaml
+    output: services/

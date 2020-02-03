@@ -1,0 +1,10 @@
+[
+    {
+        "field_a": "Value for field_a 2",
+        "field_b": [
+            1,
+            2,
+            3
+        ]
+    }
+]

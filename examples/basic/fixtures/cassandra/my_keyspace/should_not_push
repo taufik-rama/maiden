@@ -1,0 +1,5 @@
+CREATE TABLE should_not_push (
+  id UUID PRIMARY KEY,
+  lastname text,
+  firstname text
+);

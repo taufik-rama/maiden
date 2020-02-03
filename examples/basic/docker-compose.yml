@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+    cassandra:
+        image: "cassandra:3"
+        ports:
+            - "9042:9042"
+
+    elasticsearch:
+        image: "elasticsearch:6.7.1"
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+        environment:
+            - discovery.type=single-node
+            - cluster.routing.allocation.disk.watermark.low=95%
+            - cluster.routing.allocation.disk.watermark.high=95%
+
+    postgres:
+        image: "postgres:9.6-alpine"
+        ports:
+            - "5432:5432"
+
+    redis:
+        image: "redis:5.0-alpine"
+        ports:
+            - "6379:6379"

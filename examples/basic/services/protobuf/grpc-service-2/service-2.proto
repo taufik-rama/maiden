@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package service2;
+
+service GrpcService2 {
+    rpc GetService2(GetService2Request) returns (GetService2Response);
+    rpc GetOtherService2(GetOtherService2Request) returns (GetOtherService2Response);
+}
+
+message GetService2Request {
+    int64 val = 1;
+    string message = 2;
+}
+
+message GetService2Response {
+    int64 val = 1;
+    string message = 2;
+}
+
+message GetOtherService2Request {
+    int64 val = 1;
+    string message = 2;
+}
+
+message GetOtherService2Response {
+    int64 val = 1;
+    string message = 2;
+}

@@ -6,11 +6,16 @@ GO_VERSION_OUT="$(go version)"
 GO_VERSION_OUT=($GO_VERSION_OUT)
 GIT_LOG_OUT="$(git log -n 1 | head -n 1)"
 GIT_LOG_OUT=($GIT_LOG_OUT)
-DATE_OUT="$(date -u -Iseconds)"
 
+MAIDEN_VERSION=$(cat VERSION)
 GO_VERSION=${GO_VERSION_OUT[2]}
 LATEST_COMMIT=$(echo ${GIT_LOG_OUT[1]} | cut -c 1-9)
-BUILD_DATE=$DATE_OUT
+BUILD_DATE="$(date -uR)"
 BUILD_OS=${GO_VERSION_OUT[3]}
 
-go build -ldflags "-X main.goVersion=${GO_VERSION} -X main.latestCommit=${LATEST_COMMIT} -X main.buildDate=${BUILD_DATE} -X main.buildOS=${BUILD_OS}"
+go build -ldflags "\
+-X 'main.maidenVersion=${MAIDEN_VERSION}' \
+-X 'main.goVersion=${GO_VERSION}' \
+-X 'main.latestCommit=${LATEST_COMMIT}' \
+-X 'main.buildDate=${BUILD_DATE}' \
+-X 'main.buildOS=${BUILD_OS}'" ./cmd/maiden

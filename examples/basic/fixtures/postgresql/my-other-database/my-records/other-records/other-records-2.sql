@@ -1,0 +1,5 @@
+-- Version 7
+INSERT INTO public.sort_attribute (id, name, key, value, input_type, page, "position", status, version) VALUES (122, 'sort version 7 - product - nonactive', 'ob', '600', 'ANY `input_type`', 'product', 999, 0, 5);
+INSERT INTO public.sort_attribute (id, name, key, value, input_type, page, "position", status, version) VALUES (123, 'sort version 7 - product - active', 'ob', '600', 'ANY `input_type`', 'product', 999, 1, 5);
+INSERT INTO public.sort_attribute (id, name, key, value, input_type, page, "position", status, version) VALUES (124, 'sort version 7 - image - nonactive', 'ob', '600', 'ANY `input_type`', 'image', 999, 0, 5);
+INSERT INTO public.sort_attribute (id, name, key, value, input_type, page, "position", status, version) VALUES (125, 'sort version 7 - image - active', 'ob', '600', 'ANY `input_type`', 'image', 999, 1, 5);

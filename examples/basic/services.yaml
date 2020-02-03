@@ -1,0 +1,76 @@
+services:
+    grpc:
+        grpc-service-1:
+            imports:
+                - services/service-a.yaml
+            port: 20001
+            definition: "github.com/taufik-rama/maiden/examples/services/protobuf/grpc-service-1"
+            methods:
+                GetService1:
+                    request: GetService1Request
+                    response: GetService1Response
+                GetOtherService1:
+                    request: GetOtherService1Request
+                    response: GetOtherService1Response
+            conditions:
+                GetService1:
+                    - request:
+                        Val: 1
+                        Message: "Test"
+                      response:
+                        Val: 10
+                        Message: "TestTest"
+                GetOtherService1:
+                    - request:
+                        Val: 2
+                        Message: "Test"
+                      response:
+                        Val: 20
+                        Message: "TestTest"
+        grpc-service-2:
+            imports:
+                - services/service-b.yaml
+            port: 20002
+            definition: "github.com/taufik-rama/maiden/examples/services/protobuf/grpc-service-2"
+            methods:
+                GetService2:
+                    request: GetService2Request
+                    response: GetService2Response
+                GetOtherService2:
+                    request: GetOtherService2Request
+                    response: GetOtherService2Response
+    http:
+        http-service-1:
+            port: 10001
+            endpoints:
+                "/":
+                    - method: GET
+                      request: ""
+                      response: >
+                        {
+                            "Hello": "there",
+                            "My": "Response"
+                        }
+                    - method: POST
+                      request:
+                        note: "This type of request is currently not supported :("
+                        query: "service-a.yaml"
+                        body:
+                            key: "service-a.yaml"
+                            other-key: "service-a.yaml"
+                      response: "Hello"
+                "/endpoint-1":
+                    - method: POST
+                      request: "A=1&B=2"
+                      response: "right"
+        http-service-2:
+            port: 10002
+            endpoints:
+                "/":
+                    - method: GET
+                      request: "service-a.yaml"
+                      response: "service-a.yaml"
+                "/endpoint-1":
+                    - method: POST
+                      request: "A=1&B=2"
+                      response: "right"

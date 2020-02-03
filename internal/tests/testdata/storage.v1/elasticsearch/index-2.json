@@ -1,0 +1,14 @@
+{
+    "mappings": {
+        "_doc": {
+            "properties": {
+                "field_a": {
+                    "type": "keyword"
+                },
+                "field_b": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

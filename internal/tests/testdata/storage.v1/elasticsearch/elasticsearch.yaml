@@ -1,0 +1,10 @@
+---
+fixtures:
+    elasticsearch:
+        src:
+            - index: index-1
+              mapping: index-1.json
+              files: index-1-documents
+            - index: index-2
+              mapping: index-2.json
+              files: index-2-documents

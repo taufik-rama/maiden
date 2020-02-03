@@ -1,0 +1,10 @@
+---
+fixtures:
+    postgresql:
+        src:
+            - database: database-1
+              definition: fixtures/postgresql/database-1.sql
+              files: fixtures/postgresql/database-1
+            - database: database-2
+              definition: fixtures/postgresql/database-2.sql
+              files: fixtures/postgresql/database-2

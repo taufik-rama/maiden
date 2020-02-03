@@ -1,0 +1,1 @@
+INSERT INTO my_table_2 (id, lastname, firstname) VALUES (uuid(), 'a', 'b');

@@ -1,0 +1,30 @@
+{
+    "mappings": {
+        "_doc": {
+            "properties": {
+                "keyword_field_type": {
+                    "type": "keyword"
+                },
+                "integer_field_type": {
+                    "type": "integer"
+                },
+                "float_field_type": {
+                    "type": "float"
+                },
+                "date_field_type": {
+                    "type": "date"
+                },
+                "embedded_field_type": {
+                    "properties": {
+                        "sub_field_1": {
+                            "type": "boolean"
+                        },
+                        "sub_field_2": {
+                            "type": "date"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,1 @@
+INSERT INTO "table-4" ("column-1") VALUES ("value");

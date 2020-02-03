@@ -1,0 +1,28 @@
+---
+fixtures:
+    cassandra:
+        src:
+            - keyspace: my_keyspace
+              definition: fixtures/cassandra/my_keyspace.cql
+              files: fixtures/cassandra/my_keyspace
+        # dest: localhost:9042
+    elasticsearch:
+        src:
+            - index: my-index
+              mapping: fixtures/elasticsearch/my-index.json
+              files: fixtures/elasticsearch/my-index
+            - index: my-index-2
+              mapping: fixtures/elasticsearch/my-index-2.json
+              files: fixtures/elasticsearch/my-index-2
+        # dest: http://localhost:9200/
+    postgresql:
+        src:
+            - database: my-database
+            #   definition: fixtures/postgresql/my-database.sql
+              files: fixtures/postgresql/my-database
+            - database: my-other-database
+              files: fixtures/postgresql/my-database
+        # dest: postgres://postgres@localhost:5432
+    redis:
+        src: fixtures/redis
+        # dest: localhost:6379

@@ -1,9 +1,0 @@
----
-services:
-    grpc:
-        grpc-service-1:
-            imports:
-                - services.yaml
-        grpc-service-2:
-            imports:
-                - services.yaml

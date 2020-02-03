@@ -1,9 +1,0 @@
----
-fixtures:
-    redis:
-        src:
-            - "redis-src-1"
-            - "redis-src-2"
-        dest:
-            - "redis-dest-1"
-            - "redis-dest-2"

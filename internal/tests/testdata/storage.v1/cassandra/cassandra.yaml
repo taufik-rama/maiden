@@ -1,0 +1,10 @@
+---
+fixtures:
+    cassandra:
+        src:
+            - keyspace: keyspace_1
+              definition: keyspace_1_def.cql
+              files: keyspace_1
+            - keyspace: keyspace_2
+              definition: keyspace_2_def.cql
+              files: keyspace_2
