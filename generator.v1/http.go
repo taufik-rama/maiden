@@ -29,6 +29,8 @@ func (h HTTP) GenerateCommand(*cobra.Command, []string) {
 
 	for serviceName, detail := range h.ConfigHTTP {
 
+		internal.Print("Generating HTTP services `%s`", serviceName)
+
 		dir := h.Output + serviceName
 		if err := os.MkdirAll(dir, os.ModePerm); err != nil {
 			log.Fatalln(err)

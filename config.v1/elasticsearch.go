@@ -3,6 +3,9 @@ package config
 // ElasticsearchDestination ...
 var ElasticsearchDestination = "http://localhost:9200"
 
+// ElasticsearchMappingType ...
+var ElasticsearchMappingType = "_doc"
+
 // Elasticsearch ...
 type Elasticsearch struct {
 	Sources     ElasticsearchSources
@@ -29,6 +32,13 @@ func (e *Elasticsearch) from(cfg fixtureWrapper) *Elasticsearch {
 }
 
 func (e *Elasticsearch) defaultValue() {
+	for key := range e.Sources {
+		if emptyString(e.Sources[key].MappingType) {
+			v := e.Sources[key]
+			v.MappingType = ElasticsearchMappingType
+			e.Sources[key] = v
+		}
+	}
 	if emptyString(e.Destination) {
 		e.Destination = ElasticsearchDestination
 	}
@@ -63,7 +73,8 @@ type ElasticsearchSources map[string]ElasticsearchSource
 
 // ElasticsearchSource ...
 type ElasticsearchSource struct {
-	Index   string
-	Mapping string
-	Files   string
+	Index       string
+	Mapping     string
+	MappingType string
+	Files       string
 }

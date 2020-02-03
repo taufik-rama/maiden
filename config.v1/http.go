@@ -4,6 +4,7 @@ package config
 type ServiceHTTPList map[string]ServiceHTTP
 
 func (s ServiceHTTPList) from(cfg serviceWrapper) ServiceHTTPList {
+	s = make(ServiceHTTPList)
 	for key, val := range cfg.Services.HTTP {
 		s[key] = ServiceHTTP{
 			Port:      val.Port,
@@ -52,9 +53,7 @@ type ServiceHTTPEndpoints map[string][]struct {
 func (s ServiceHTTPEndpoints) replace(other ServiceHTTPEndpoints) {
 	for key := range s {
 		if _, ok := other[key]; ok {
-			value := other[key]
-			value = append(value, s[key]...)
-			other[key] = value
+			other[key] = append(other[key], s[key]...)
 		} else {
 			other[key] = s[key]
 		}

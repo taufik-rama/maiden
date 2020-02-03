@@ -30,7 +30,7 @@ func (s *Service) Parse(filename string) error {
 
 	dir := filepath.Dir(filename) + string(os.PathSeparator)
 
-	new(Service).from(config).replace(s)
+	new(Service).from(config).resolve(dir).replace(s)
 
 	for _, imp := range toStringSlice(config.Services.Imports) {
 		if err := s.Parse(dir + imp); err != nil {
@@ -55,12 +55,24 @@ func (s *Service) from(cfg serviceWrapper) *Service {
 		s.HTTP = new(ServiceHTTPList).from(cfg)
 	}
 
+	s.Output = cfg.Services.Output
+
+	return s
+}
+
+func (s *Service) resolve(dir string) *Service {
+	if !emptyString(s.Output) {
+		s.Output = dir + s.Output
+	}
 	return s
 }
 
 func (s Service) replace(other *Service) {
 
-	if strings.TrimSpace(s.Output) != "" {
+	if !emptyString(s.Output) {
+		if !strings.HasSuffix(s.Output, string(os.PathSeparator)) {
+			s.Output += string(os.PathSeparator)
+		}
 		other.Output = s.Output
 	}
 

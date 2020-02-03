@@ -110,27 +110,27 @@ func (f *Fixture) resolve(dir string) *Fixture {
 
 func (f Fixture) replace(other *Fixture) {
 
-	if other.Cassandra != nil {
-		f.Cassandra.replace(other.Cassandra)
-	} else {
+	if other.Cassandra == nil {
 		other.Cassandra = f.Cassandra
+	} else if f.Cassandra != nil {
+		f.Cassandra.replace(other.Cassandra)
 	}
 
-	if other.Elasticsearch != nil {
-		f.Elasticsearch.replace(other.Elasticsearch)
-	} else {
+	if other.Elasticsearch == nil {
 		other.Elasticsearch = f.Elasticsearch
+	} else if f.Elasticsearch != nil {
+		f.Elasticsearch.replace(other.Elasticsearch)
 	}
 
-	if other.PostgreSQL != nil {
-		f.PostgreSQL.replace(other.PostgreSQL)
-	} else {
+	if other.PostgreSQL == nil {
 		other.PostgreSQL = f.PostgreSQL
+	} else if f.PostgreSQL != nil {
+		f.PostgreSQL.replace(other.PostgreSQL)
 	}
 
-	if other.Redis != nil {
-		f.Redis.replace(other.Redis)
-	} else {
+	if other.Redis == nil {
 		other.Redis = f.Redis
+	} else if f.Redis != nil {
+		f.Redis.replace(other.Redis)
 	}
 }

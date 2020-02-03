@@ -13,9 +13,14 @@ LATEST_COMMIT=$(echo ${GIT_LOG_OUT[1]} | cut -c 1-9)
 BUILD_DATE="$(date -uR)"
 BUILD_OS=${GO_VERSION_OUT[3]}
 
+BIN=${BUILD_OS}
+BIN=(${BIN//\// })
+
 go build -ldflags "\
 -X 'main.maidenVersion=${MAIDEN_VERSION}' \
 -X 'main.goVersion=${GO_VERSION}' \
 -X 'main.latestCommit=${LATEST_COMMIT}' \
 -X 'main.buildDate=${BUILD_DATE}' \
--X 'main.buildOS=${BUILD_OS}'" ./cmd/maiden
+-X 'main.buildOS=${BUILD_OS}' \
+-s -w" \
+-o "maiden-${BIN[0]}-${BIN[1]}" ./cmd/maiden

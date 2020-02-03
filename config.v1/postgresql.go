@@ -29,6 +29,13 @@ func (p *PostgreSQL) from(cfg fixtureWrapper) *PostgreSQL {
 }
 
 func (p *PostgreSQL) defaultValue() {
+	for key := range p.Sources {
+		if emptyString(p.Sources[key].Files) {
+			v := p.Sources[key]
+			v.Files = v.Database
+			p.Sources[key] = v
+		}
+	}
 	if emptyString(p.Destination) {
 		p.Destination = PostgreSQLDestination
 	}

@@ -14,7 +14,7 @@ import (
 )
 
 var sqlFormat = ".sql"
-var postgresqlDatabase = `CREATE DATABASE IF NOT EXISTS "%s"`
+var postgresqlDatabase = `CREATE DATABASE "%s"`
 
 // PostgreSQL ...
 type PostgreSQL struct{}
@@ -214,6 +214,7 @@ func (p PostgreSQL) push(cfg *config.PostgreSQL, databases, tables map[string]st
 			continue
 		}
 
+		internal.Print("Creating database `%s`", source.Database)
 		if err := p.createDatabase(source.Database, source.Definition, cfg.Destination); err != nil {
 			if strings.Contains(err.Error(), "already exists") {
 				internal.Print("Database `%s` exists, did not need to be pushed", source.Database)
@@ -239,6 +240,7 @@ func (p PostgreSQL) push(cfg *config.PostgreSQL, databases, tables map[string]st
 			continue
 		}
 
+		internal.Print("Pushing table & records...")
 		files, err := ioutil.ReadDir(source.Files)
 		if err != nil {
 			panic(err)
@@ -249,7 +251,7 @@ func (p PostgreSQL) push(cfg *config.PostgreSQL, databases, tables map[string]st
 			if file.IsDir() {
 				continue
 			}
-			if _, ok := tables[(file.Name() + ".sql")]; !ok {
+			if _, ok := tables[file.Name()]; !ok {
 				continue
 			}
 			path := source.Files + string(os.PathSeparator) + file.Name()
@@ -267,7 +269,7 @@ func (p PostgreSQL) push(cfg *config.PostgreSQL, databases, tables map[string]st
 			if !file.IsDir() {
 				continue
 			}
-			if _, ok := tables[file.Name()]; !ok {
+			if _, ok := tables[(file.Name() + ".sql")]; !ok {
 				continue
 			}
 			path := source.Files + string(os.PathSeparator) + file.Name()

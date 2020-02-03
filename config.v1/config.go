@@ -14,9 +14,10 @@ type InputFixture struct {
 	}
 	Elasticsearch *struct {
 		Sources []struct {
-			Index   string `yaml:"index"`
-			Mapping string `yaml:"mapping"`
-			Files   string `yaml:"files"`
+			Index       string `yaml:"index"`
+			Mapping     string `yaml:"mapping"`
+			MappingType string `yaml:"mapping-type"`
+			Files       string `yaml:"files"`
 		} `yaml:"src"`
 		Destination string `yaml:"dest"`
 	} `yaml:"elasticsearch"`

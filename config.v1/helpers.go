@@ -37,5 +37,5 @@ func parseYAML(filename string, v interface{}) error {
 
 // Checks for trimmed empty string
 func emptyString(s string) bool {
-	return strings.TrimSpace(string(s)) == ""
+	return strings.TrimSpace(s) == ""
 }

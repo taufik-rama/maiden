@@ -13,9 +13,10 @@ type ServiceGenerate struct{}
 // Command returns `service generate` command process
 func (s ServiceGenerate) Command() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "generate",
-		Short: "Generate the services",
-		Run:   s.RunCommand,
+		Use:     "generate",
+		Aliases: []string{"gen"},
+		Short:   "Generate the services",
+		Run:     s.RunCommand,
 	}
 	return cmd
 }

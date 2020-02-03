@@ -29,6 +29,8 @@ func (g GRPC) GenerateCommand(*cobra.Command, []string) {
 
 	for serviceName, detail := range g.ConfigGRPC {
 
+		internal.Print("Generating GRPC services `%s`", serviceName)
+
 		dir := g.Output + serviceName
 		if err := os.MkdirAll(dir, os.ModePerm); err != nil {
 			log.Fatalln(err)
@@ -79,12 +81,12 @@ func (g GRPC) GenerateCommand(*cobra.Command, []string) {
 				for _, value := range detail {
 
 					if err := writeChecks(&writer, value.Request); err != nil {
-						log.Println("invalid service request conditions config: on", serviceName, name, err)
+						log.Println("invalid service request conditions config on", serviceName, name, err)
 						continue
 					}
 
 					if err := writeReturn(&writer, value.Response, method.Response, ""); err != nil {
-						log.Println("invalid service response conditions config: on", serviceName, name, err)
+						log.Println("invalid service response conditions config on", serviceName, name, err)
 						continue
 					}
 
@@ -118,9 +120,13 @@ func (g GRPC) GenerateCommand(*cobra.Command, []string) {
 
 func writeChecks(writer *writer.Writer, f interface{}) error {
 
+	if f == nil {
+		return errors.New("request is nil")
+	}
+
 	fields, ok := f.(map[interface{}]interface{})
 	if !ok {
-		return errors.New("not a JSON object")
+		return fmt.Errorf("not a JSON object, but a %s", reflect.TypeOf(f).Kind().String())
 	}
 
 	ifs := []string{}
@@ -219,7 +225,7 @@ func writeReturn(writer *writer.Writer, f interface{}, response, field string) e
 
 func writeReturnsFields(writer *writer.Writer, field string, f interface{}) error {
 
-	fields, ok := f.(map[string]interface{})
+	fields, ok := f.(map[interface{}]interface{})
 	if !ok {
 		return errors.New("not a JSON object")
 	}

@@ -4,6 +4,7 @@ package config
 type ServiceGRPCList map[string]ServiceGRPC
 
 func (s ServiceGRPCList) from(cfg serviceWrapper) ServiceGRPCList {
+	s = make(ServiceGRPCList)
 	for key, val := range cfg.Services.GRPC {
 		s[key] = ServiceGRPC{
 			Port:       val.Port,
@@ -86,9 +87,7 @@ type ServiceGRPCConditions map[string][]struct {
 func (s ServiceGRPCConditions) replace(other ServiceGRPCConditions) {
 	for key := range s {
 		if _, ok := other[key]; ok {
-			value := other[key]
-			value = append(value, s[key]...)
-			other[key] = value
+			other[key] = append(other[key], s[key]...)
 		} else {
 			other[key] = s[key]
 		}
