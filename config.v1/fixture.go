@@ -1,3 +1,9 @@
+/// Config V1 package
+///
+/// Experimental stage, some notes:
+/// `defaultValue` & `replace` is incompatible some of the time, mainly because we're usually
+/// replacing empty value but the default always comes first.
+
 package config
 
 import (
@@ -11,6 +17,8 @@ type Fixture struct {
 	Elasticsearch *Elasticsearch
 	PostgreSQL    *PostgreSQL
 	Redis         *Redis
+
+	DockerComposeOutput string
 }
 
 type fixtureWrapper struct {
@@ -63,6 +71,10 @@ func (f *Fixture) from(cfg fixtureWrapper) *Fixture {
 		f.Redis = new(Redis).from(cfg)
 	}
 
+	if cfg.Fixtures.DockerCompose != nil {
+		f.DockerComposeOutput = cfg.Fixtures.DockerCompose.Output
+	}
+
 	return f
 }
 
@@ -82,6 +94,10 @@ func (f *Fixture) defaultValue() *Fixture {
 
 	if f.Redis != nil {
 		f.Redis.defaultValue()
+	}
+
+	if emptyString(f.DockerComposeOutput) {
+		f.DockerComposeOutput = "docker-compose.yaml"
 	}
 
 	return f
@@ -104,6 +120,8 @@ func (f *Fixture) resolve(dir string) *Fixture {
 	if f.Redis != nil {
 		f.Redis.resolve(dir)
 	}
+
+	f.DockerComposeOutput = dir + f.DockerComposeOutput
 
 	return f
 }
@@ -132,5 +150,10 @@ func (f Fixture) replace(other *Fixture) {
 		other.Redis = f.Redis
 	} else if f.Redis != nil {
 		f.Redis.replace(other.Redis)
+	}
+
+	// Only the first value will be assigned, might need to be refactored
+	if emptyString(other.DockerComposeOutput) {
+		other.DockerComposeOutput = f.DockerComposeOutput
 	}
 }

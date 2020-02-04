@@ -3,6 +3,9 @@ package config
 // InputFixture corresponds with the data structure of unmarshalled config values.
 // It shouldn't be used directly and instead marshalled via it's parse method.
 type InputFixture struct {
+	DockerCompose *struct {
+		Output string `yaml:"output"`
+	} `yaml:"docker-compose"`
 	Imports   interface{} `yaml:"imports"`
 	Cassandra *struct {
 		Sources []struct {

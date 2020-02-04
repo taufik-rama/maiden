@@ -35,6 +35,7 @@ func (f Fixture) Command() *cobra.Command {
 
 	cmd.AddCommand((FixturePush{}).Command())
 	cmd.AddCommand((FixtureRemove{}).Command())
+	cmd.AddCommand((FixtureGenerate{}).Command())
 
 	return cmd
 }
