@@ -46,7 +46,14 @@ func main() {
 	rootCmd.PersistentFlags().BoolVarP(&internal.Args.Verbose, "verbose", "v", false, "")
 
 	rootCmd.AddCommand((Fixture{}).Command())
+	rootCmd.AddCommand((FixturePush{}).Command())
+	rootCmd.AddCommand((FixtureRemove{}).Command())
+	rootCmd.AddCommand((FixtureGenerate{}).Command())
+
 	rootCmd.AddCommand((Service{}).Command())
+	rootCmd.AddCommand((ServiceGenerate{}).Command())
+	rootCmd.AddCommand((ServiceRun{}).Command())
+
 	rootCmd.AddCommand(VersionCommand)
 
 	rootCmd.Execute()

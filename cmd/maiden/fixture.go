@@ -19,24 +19,17 @@ type Fixture struct {
 
 // Command returns `fixture` command process
 func (f Fixture) Command() *cobra.Command {
-
 	cmd := &cobra.Command{
 		Use:     "fixture",
 		Aliases: []string{"f"},
-		Short:   "Interact with the available fixtures",
+		Short:   "Parse available fixtures",
 		Run:     f.RunCommand,
 	}
-
 	cmd.PersistentFlags().BoolVarP(&f.statusAll, "status-all", "", false, "Show all the fixtures")
 	cmd.PersistentFlags().BoolVarP(&f.statusCassandra, "status-cassandra", "", false, "Show cassandra fixtures")
 	cmd.PersistentFlags().BoolVarP(&f.statusElasticsearch, "status-elasticsearch", "", false, "Show elasticsearch fixtures")
 	cmd.PersistentFlags().BoolVarP(&f.statusPostgreSQL, "status-postgresql", "", false, "Show postgresql fixtures")
 	cmd.PersistentFlags().BoolVarP(&f.statusRedis, "status-redis", "", false, "Show redis fixtures")
-
-	cmd.AddCommand((FixturePush{}).Command())
-	cmd.AddCommand((FixtureRemove{}).Command())
-	cmd.AddCommand((FixtureGenerate{}).Command())
-
 	return cmd
 }
 

@@ -10,7 +10,7 @@ import (
 // FixturePush command handler
 type FixturePush struct{}
 
-// Command returns `fixture push` command process
+// Command returns `push` command process
 func (f FixturePush) Command() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "push",
@@ -24,7 +24,7 @@ func (f FixturePush) Command() *cobra.Command {
 	return cmd
 }
 
-// RunCommand runs `fixture push` command
+// RunCommand runs `push` command
 func (f FixturePush) RunCommand(cmd *cobra.Command, args []string) {
 
 	fixture := new(config.Fixture)

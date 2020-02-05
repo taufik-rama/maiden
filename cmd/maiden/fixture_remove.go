@@ -10,7 +10,7 @@ import (
 // FixtureRemove command handler
 type FixtureRemove struct{}
 
-// Command returns `fixture remove` command process
+// Command returns `remove` command process
 func (f FixtureRemove) Command() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "remove",
@@ -25,7 +25,7 @@ func (f FixtureRemove) Command() *cobra.Command {
 	return cmd
 }
 
-// RunCommand runs `fixture remove` command
+// RunCommand runs `remove` command
 func (f FixtureRemove) RunCommand(cmd *cobra.Command, args []string) {
 
 	fixture := new(config.Fixture)

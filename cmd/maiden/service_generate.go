@@ -10,7 +10,7 @@ import (
 // ServiceGenerate command handler
 type ServiceGenerate struct{}
 
-// Command returns `service generate` command process
+// Command returns `generate` command process
 func (s ServiceGenerate) Command() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "generate",
@@ -21,7 +21,7 @@ func (s ServiceGenerate) Command() *cobra.Command {
 	return cmd
 }
 
-// RunCommand runs `service generate` command
+// RunCommand runs `generate` command
 func (s *ServiceGenerate) RunCommand(cmd *cobra.Command, args []string) {
 
 	service := new(config.Service)

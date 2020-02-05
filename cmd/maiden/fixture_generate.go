@@ -10,18 +10,18 @@ import (
 // FixtureGenerate command handler
 type FixtureGenerate struct{}
 
-// Command returns `fixture generate` command process
+// Command returns `generate-fixture` command process
 func (f FixtureGenerate) Command() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "generate",
-		Aliases: []string{"gen"},
+		Use:     "generate-fixture",
+		Aliases: []string{"genf"},
 		Short:   "Generate the fixtures storage service docker file",
 		Run:     f.RunCommand,
 	}
 	return cmd
 }
 
-// RunCommand runs `fixture generate` command
+// RunCommand runs `generate-fixture` command
 func (f FixtureGenerate) RunCommand(cmd *cobra.Command, args []string) {
 
 	fixture := new(config.Fixture)

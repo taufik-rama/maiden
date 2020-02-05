@@ -17,21 +17,15 @@ type Service struct {
 
 // Command returns `service` command process
 func (s Service) Command() *cobra.Command {
-
 	cmd := &cobra.Command{
 		Use:     "service",
 		Aliases: []string{"s"},
-		Short:   "Generate pre-defined dummy services",
+		Short:   "Parse available dummy services",
 		Run:     s.RunCommand,
 	}
-
 	cmd.PersistentFlags().BoolVarP(&s.statusAll, "status-all", "", false, "Show all services")
 	cmd.PersistentFlags().BoolVarP(&s.statusHTTP, "status-http", "", false, "Show HTTP services")
 	cmd.PersistentFlags().BoolVarP(&s.statusGRPC, "status-grpc", "", false, "Show GRPC services")
-
-	cmd.AddCommand((ServiceGenerate{}).Command())
-	cmd.AddCommand((ServiceRun{}).Command())
-
 	return cmd
 }
 

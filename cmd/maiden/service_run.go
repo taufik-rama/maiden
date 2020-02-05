@@ -12,7 +12,7 @@ import (
 // ServiceRun command handler
 type ServiceRun struct{}
 
-// Command returns `service run` command process
+// Command returns `run` command process
 func (s ServiceRun) Command() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "run",
@@ -22,7 +22,7 @@ func (s ServiceRun) Command() *cobra.Command {
 	return cmd
 }
 
-// RunCommand runs `service run` command
+// RunCommand runs `run` command
 func (s ServiceRun) RunCommand(cmd *cobra.Command, args []string) {
 
 	service := new(config.Service)
