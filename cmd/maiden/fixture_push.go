@@ -32,17 +32,25 @@ func (f FixturePush) RunCommand(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	internal.Print("Pushing Cassandra")
-	(storage.Cassandra{}).Push(fixture.Cassandra)
+	if fixture.Cassandra != nil {
+		internal.Print("Pushing Cassandra")
+		(storage.Cassandra{}).Push(fixture.Cassandra)
+	}
 
-	internal.Print("Pushing Elasticsearch")
-	(storage.Elasticsearch{}).Push(fixture.Elasticsearch)
+	if fixture.Elasticsearch != nil {
+		internal.Print("Pushing Elasticsearch")
+		(storage.Elasticsearch{}).Push(fixture.Elasticsearch)
+	}
 
-	internal.Print("Pushing PostgreSQL")
-	(storage.PostgreSQL{}).Push(fixture.PostgreSQL)
+	if fixture.PostgreSQL != nil {
+		internal.Print("Pushing PostgreSQL")
+		(storage.PostgreSQL{}).Push(fixture.PostgreSQL)
+	}
 
-	internal.Print("Pushing Redis")
-	(storage.Redis{}).Push(fixture.Redis)
+	if fixture.Redis != nil {
+		internal.Print("Pushing Redis")
+		(storage.Redis{}).Push(fixture.Redis)
+	}
 }
 
 // CassandraCommand returns `fixture push cassandra` command process

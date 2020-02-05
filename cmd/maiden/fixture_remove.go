@@ -33,17 +33,25 @@ func (f FixtureRemove) RunCommand(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	internal.Print("Removing Cassandra")
-	(storage.Cassandra{}).Remove(fixture.Cassandra)
+	if fixture.Cassandra != nil {
+		internal.Print("Removing Cassandra")
+		(storage.Cassandra{}).Remove(fixture.Cassandra)
+	}
 
-	internal.Print("Removing Elasticsearch")
-	(storage.Elasticsearch{}).Remove(fixture.Elasticsearch)
+	if fixture.Elasticsearch != nil {
+		internal.Print("Removing Elasticsearch")
+		(storage.Elasticsearch{}).Remove(fixture.Elasticsearch)
+	}
 
-	internal.Print("Removing PostgreSQL")
-	(storage.PostgreSQL{}).Remove(fixture.PostgreSQL)
+	if fixture.PostgreSQL != nil {
+		internal.Print("Removing PostgreSQL")
+		(storage.PostgreSQL{}).Remove(fixture.PostgreSQL)
+	}
 
-	internal.Print("Removing Redis")
-	(storage.Redis{}).Remove(fixture.Redis)
+	if fixture.Redis != nil {
+		internal.Print("Removing Redis")
+		(storage.Redis{}).Remove(fixture.Redis)
+	}
 }
 
 // CassandraCommand returns `fixture remove cassandra` command process
