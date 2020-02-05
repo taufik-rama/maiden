@@ -26,65 +26,37 @@ type Elasticsearch struct {
 
 // Push ...
 func (e Elasticsearch) Push(cfg *config.Elasticsearch) {
-
-	for _, source := range cfg.Sources {
-
-		internal.Print("Reading `%s`", source.Mapping)
-		mapping, err := os.Open(source.Mapping)
-		if err != nil {
-			panic(err)
-		}
-		defer mapping.Close()
-
-		request, err := http.NewRequest("PUT", (cfg.Destination + "/" + source.Index), mapping)
-		if err != nil {
-			panic(err)
-		}
-		request.Header.Add("Content-Type", "application/json")
-
-		response, err := new(http.Client).Do(request)
-		if err != nil {
-			panic(err)
-		}
-		defer response.Body.Close()
-
-		var cause struct {
-			Error struct {
-				Type    string `json:"type"`
-				Reasong string `json:"reason"`
-			} `json:"error"`
-		}
-		bytes, _ := ioutil.ReadAll(response.Body)
-		json.Unmarshal(bytes, &cause)
-
-		if strings.TrimSpace(cause.Error.Type) != "" {
-			log.Printf("%s: [%s] %s", response.Status, cause.Error.Type, cause.Error.Reasong)
-		}
-
-		if err := e.pushDocuments(source, cfg.Destination); err != nil {
-			panic(err)
-		}
-	}
+	e.push(cfg, "", true)
 }
 
 // PushIndex ...
 func (e Elasticsearch) PushIndex(cfg *config.Elasticsearch, index string) {
+	e.push(cfg, index, false)
+}
+
+// Probably will be changed.
+// The `all` arg only works because there's only 2 states for the push command (`Push` & `PushIndex`)
+func (e Elasticsearch) push(cfg *config.Elasticsearch, index string, all bool) {
 
 	indices := make(map[string]struct{})
 
-	for _, index := range strings.Split(index, ",") {
-		if _, ok := cfg.Sources[index]; !ok {
-			log.Printf("Index `%s` not registered", index)
-			continue
+	if !all {
+		for _, index := range strings.Split(index, ",") {
+			if _, ok := cfg.Sources[index]; !ok {
+				log.Printf("Index `%s` not registered", index)
+				continue
+			}
+			indices[index] = struct{}{}
 		}
-		indices[index] = struct{}{}
 	}
 
 	for _, source := range cfg.Sources {
 
-		if _, ok := indices[source.Index]; !ok {
+		if _, ok := indices[source.Index]; !ok && !all {
 			continue
 		}
+
+		internal.Print("Pushing index `%s`", source.Index)
 
 		internal.Print("Reading `%s`", source.Mapping)
 		mapping, err := os.Open(source.Mapping)
@@ -116,8 +88,10 @@ func (e Elasticsearch) PushIndex(cfg *config.Elasticsearch, index string) {
 
 		if strings.TrimSpace(cause.Error.Type) != "" {
 			log.Printf("%s: [%s] %s", response.Status, cause.Error.Type, cause.Error.Reasong)
+			continue
 		}
 
+		internal.Print("Pushing index `%s` documents", source.Index)
 		if err := e.pushDocuments(source, cfg.Destination); err != nil {
 			panic(err)
 		}
@@ -200,53 +174,37 @@ func (e Elasticsearch) pushDocuments(source config.ElasticsearchSource, destinat
 
 // Remove ...
 func (e Elasticsearch) Remove(cfg *config.Elasticsearch) {
-
-	for _, source := range cfg.Sources {
-
-		request, err := http.NewRequest("DELETE", (cfg.Destination + "/" + source.Index), nil)
-		if err != nil {
-			panic(err)
-		}
-
-		response, err := new(http.Client).Do(request)
-		if err != nil {
-			panic(err)
-		}
-		defer response.Body.Close()
-
-		var cause struct {
-			Error struct {
-				Type    string `json:"type"`
-				Reasong string `json:"reason"`
-			} `json:"error"`
-		}
-		bytes, _ := ioutil.ReadAll(response.Body)
-		json.Unmarshal(bytes, &cause)
-
-		if strings.TrimSpace(cause.Error.Type) != "" {
-			log.Printf("%s: [%s] %s", response.Status, cause.Error.Type, cause.Error.Reasong)
-		}
-	}
+	e.remove(cfg, "", true)
 }
 
 // RemoveIndex ...
 func (e Elasticsearch) RemoveIndex(cfg *config.Elasticsearch, index string) {
+	e.remove(cfg, index, false)
+}
+
+// Probably will be changed.
+// The `all` arg only works because there's only 2 states for the push command (`Push` & `PushIndex`)
+func (e Elasticsearch) remove(cfg *config.Elasticsearch, index string, all bool) {
 
 	indices := make(map[string]struct{})
 
-	for _, index := range strings.Split(index, ",") {
-		if _, ok := cfg.Sources[index]; !ok {
-			log.Printf("Index `%s` not registered", index)
-			continue
+	if !all {
+		for _, index := range strings.Split(index, ",") {
+			if _, ok := cfg.Sources[index]; !ok {
+				log.Printf("Index `%s` not registered", index)
+				continue
+			}
+			indices[index] = struct{}{}
 		}
-		indices[index] = struct{}{}
 	}
 
 	for _, source := range cfg.Sources {
 
-		if _, ok := indices[source.Index]; !ok {
+		if _, ok := indices[source.Index]; !ok && !all {
 			continue
 		}
+
+		internal.Print("Removing index `%s`", source.Index)
 
 		request, err := http.NewRequest("DELETE", (cfg.Destination + "/" + source.Index), nil)
 		if err != nil {
