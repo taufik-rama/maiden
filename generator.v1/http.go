@@ -118,6 +118,7 @@ func (h HTTP) GenerateCommand(*cobra.Command, []string) {
 				writer.Write(`http.HandleFunc("%s", %s)`, api, toFuncName(api))
 			}
 		}
+		writer.Write((`fmt.Printf("` + "Starting `%s` on :%d" + `\n")`), serviceName, detail.Port)
 		writer.Write(`panic(http.ListenAndServe(":%d", nil))`, detail.Port)
 		writer.DecrIndentLevel()
 		writer.Write("}")

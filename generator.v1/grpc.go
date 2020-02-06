@@ -104,6 +104,7 @@ func (g GRPC) GenerateCommand(*cobra.Command, []string) {
 		writer.IncrIndentLevel()
 		writer.Write("server := grpc.NewServer()")
 		writer.Write("pb.Register%sServer(server, dummyServer{})", strings.ReplaceAll(strings.Title(serviceName), "-", ""))
+		writer.Write((`fmt.Printf("` + "Starting `%s` on :%d" + `\n")`), serviceName, detail.Port)
 		writer.Write(`if listener, err := net.Listen("tcp", ":%d"); err != nil {`, detail.Port)
 		writer.IncrIndentLevel()
 		writer.Write(`panic(err)`)
