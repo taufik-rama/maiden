@@ -30,11 +30,3 @@ type Cassandra struct {
 func (c Cassandra) push() {
 	(storage.Cassandra{}).Push(c.f.Cassandra)
 }
-
-func (c Cassandra) pushKeyspace() {
-	(storage.Cassandra{}).PushKeyspace(c.f.Cassandra, "")
-}
-
-func (c Cassandra) pushKeyspaceTable() {
-	(storage.Cassandra{}).PushKeyspaceTable(c.f.Cassandra, "", "")
-}

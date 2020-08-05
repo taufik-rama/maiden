@@ -79,7 +79,7 @@ func (c Cassandra) PushKeyspace(cfg *config.Cassandra, keyspace string) {
 func (c Cassandra) PushKeyspaceTable(cfg *config.Cassandra, keyspace, table string) {
 
 	keyspaces := map[string]struct{}{
-		keyspace: struct{}{},
+		keyspace: {},
 	}
 	tables := make(map[string]struct{})
 
@@ -282,7 +282,17 @@ func (c Cassandra) executeCQL(session *gocql.Session, cql string) error {
 	if strings.TrimSpace(cql) == "" {
 		return nil
 	}
-	return session.Query(cql).Exec()
+
+	// Fix: Cassandra only allows 1 statement per `Query()` call, split & iterate here
+	for _, query := range strings.Split(cql, ";") {
+		if strings.TrimSpace(query) == "" {
+			continue
+		} else if err := session.Query(query).Exec(); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (c Cassandra) createSession(destination, keyspace string) (*gocql.Session, error) {
@@ -305,11 +315,11 @@ func (c Cassandra) pushKeyspace(destination, definition string) error {
 func (c Cassandra) checkSource(source, keyspace string) error {
 	if info, err := os.Lstat(source); err != nil {
 		if os.IsNotExist(err) {
-			return fmt.Errorf("No fixtures are found for keyspace `%s`", keyspace)
+			return fmt.Errorf("no fixtures are found for keyspace `%s`", keyspace)
 		}
 		return err
 	} else if !info.IsDir() {
-		return fmt.Errorf("The fixtures for keyspace `%s` must be a directory", keyspace)
+		return fmt.Errorf("the fixtures for keyspace `%s` must be a directory", keyspace)
 	}
 	return nil
 }

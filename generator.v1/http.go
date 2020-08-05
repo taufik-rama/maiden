@@ -115,7 +115,7 @@ func (h HTTP) GenerateCommand(*cobra.Command, []string) {
 			if strings.TrimSpace(api) == "" {
 				writer.Write(`http.HandleFunc("/", %s)`, toFuncName(api))
 			} else {
-				writer.Write(`http.HandleFunc("%s", %s)`, api, toFuncName(api))
+				writer.Write(`http.HandleFunc("%s", %s)`, prefixSlash(api), toFuncName(api))
 			}
 		}
 		writer.Write((`fmt.Printf("` + "Starting `%s` on :%d" + `\n")`), serviceName, detail.Port)
@@ -148,6 +148,13 @@ func toFuncName(url string) string {
 	}
 
 	return name
+}
+
+func prefixSlash(url string) string {
+	if !strings.HasPrefix(url, "/") {
+		return "/" + url
+	}
+	return url
 }
 
 func eraseDot(url string) string {

@@ -33,14 +33,14 @@ var (
 
 	// Ports list
 	Ports = map[string][]string{
-		Cassandra:     []string{"9042:9042"},
-		Elasticsearch: []string{"9200:9200", "9300:9300"},
-		PostgreSQL:    []string{"5432:5432"},
-		Redis:         []string{"6379:6379"},
+		Cassandra:     {"9042:9042"},
+		Elasticsearch: {"9200:9200", "9300:9300"},
+		PostgreSQL:    {"5432:5432"},
+		Redis:         {"6379:6379"},
 	}
 )
 
-// DockerCompose ...
+// DockerCompose config type
 type DockerCompose struct {
 	Output string
 	Images []string
@@ -66,7 +66,7 @@ func (d DockerCompose) GenerateCommand(*cobra.Command, []string) {
 
 	for _, name := range d.Images {
 
-		internal.Print("Writing `%s` service", name)
+		internal.Print("Parsing `%s` docker service", name)
 
 		s := service{
 			Image: Images[name],

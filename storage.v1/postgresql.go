@@ -78,7 +78,7 @@ func (p PostgreSQL) PushDatabase(cfg *config.PostgreSQL, database string) {
 func (p PostgreSQL) PushDatabaseTable(cfg *config.PostgreSQL, database, table string) {
 
 	databases := map[string]struct{}{
-		database: struct{}{},
+		database: {},
 	}
 	tables := make(map[string]struct{})
 

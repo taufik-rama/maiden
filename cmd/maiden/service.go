@@ -29,7 +29,7 @@ func (s Service) Command() *cobra.Command {
 	return cmd
 }
 
-// RunCommand runs `fixture` command
+// RunCommand runs `service` command
 func (s *Service) RunCommand(cmd *cobra.Command, args []string) {
 	if s.statusFlag() {
 		if err := s.printStatus(); err != nil {
