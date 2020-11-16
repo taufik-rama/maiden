@@ -299,6 +299,7 @@ func (c Cassandra) createSession(destination, keyspace string) (*gocql.Session, 
 	cluster := gocql.NewCluster(destination)
 	cluster.Timeout = 5 * time.Second
 	cluster.Keyspace = keyspace
+	cluster.Consistency = gocql.LocalOne
 	return cluster.CreateSession()
 }
 
